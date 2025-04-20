@@ -134,8 +134,6 @@ To ensure clarity and consistency, we ask the model to return tags/hashtags in J
   "tags": ["ai youtube automation", "youtube seo"]
 }
 ```
-```
-
 📦 **Processing in Python (Cell 3.3.B):**
 
 ```python
@@ -168,18 +166,6 @@ search_response = client.models.generate_content(
 )
 
 search_text = search_response.candidates[0].content.parts[0].text.strip()
-from google.genai import types
-
-config_with_search = types.GenerateContentConfig(
-     tools=[types.Tool(GoogleSearch=types.GoogleSearch())]
-)
-
-search_response = client.models.generate_content(
-     model=MODEL_NAME,
-     contents=[search_query],
-     config=config_with_search
-)
-search_text = search_response.candidates[0].content.parts[0].text.strip()
 ```
 ### 4. 📜 Long Context & Document Understanding
 Scenario 2 relies on Gemini's ability to handle very long transcripts (e.g., >200k characters) and return meaningful outputs like chapters with timestamps.
@@ -201,31 +187,31 @@ chapters_output = response.text.strip()
 *Example: Agent-generated metadata with structured chapters.*
 
 ## ⚠️ Limitations and 🔮 Future Work
-Limitations:
+**Limitations:**
 
-♦️Output quality depends on input quality (especially transcripts)
-♦️Some outputs might require manual refinement
-♦️API usage subject to quotas (especially grounding on free tier)
-♦️Availability of specific Gemini models may vary
+- Output quality depends on input quality (especially transcripts)
+- Some outputs might require manual refinement
+- API usage subject to quotas (especially grounding on free tier)
+- Availability of specific Gemini models may vary
 
-Planned Improvements:
+**Planned Improvements:**
 
-🔸Integration with Google Sheets + YouTube API
-🔸Speaker recognition & database
-🔸Output quality checks + API cost tracking
-🔸Further prompt optimization
-🔸Minimal web UI for batch processing
-🔸Integration with messenger (Telegram)
+- Integration with Google Sheets + YouTube API
+- Speaker recognition & database
+- Output quality checks + API cost tracking
+- Further prompt optimization
+- Minimal web UI for batch processing
+- Integration with messenger (Telegram)
+
 
 ✅ Conclusion
 The YouTube Content MetaGen Agent demonstrates a practical use-case for GenAI:
 
 Helping creators focus on content by automating repetitive metadata tasks.
 
-🔗 Links
-📓 Kaggle Notebook: https://www.kaggle.com/code/dzianisbialou/youtube-content-metagen-agent
-
-▶️ YouTube Demo Video: https://www.youtube.com/watch?v=NqeRV9jw3ng
+**🔗 Links:**
+- 📓 Kaggle Notebook: https://www.kaggle.com/code/dzianisbialou/youtube-content-metagen-agent
+- ▶️ YouTube Demo Video: https://www.youtube.com/watch?v=NqeRV9jw3ng
 
 💬 Feedback Welcome!
 I’d love to hear your feedback — comment on the Kaggle notebook or YouTube video with suggestions or questions!
