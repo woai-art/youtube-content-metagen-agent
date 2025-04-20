@@ -1,6 +1,12 @@
 # Automating the Grind: Generating YouTube Metadata with the Gemini API (My Kaggle Capstone Project)
 
 ---
+![alt text](logo.jpg)
+
+
+[![Kaggle](https://img.shields.io/badge/Run%20on-Kaggle-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/code/dzianisbialou/youtube-content-metagen-agent) [![YouTube](https://img.shields.io/badge/Watch%20on-YouTube-red?logo=youtube&logoColor=white)](https://youtu.be/NqeRV9jw3ng)
+
+
 
 Hello, fellow Homo Dataens! Dzianis here.
 
@@ -20,6 +26,7 @@ So, I decided to automate this process using **generative AI**, specifically **G
 ## 🎯 The Creator's Problem: Routine Kills Creativity
 
 Over the past year, I've prepared metadata for over 300 videos and livestreams, featuring various guests and covering diverse topics. Each one requires:
+
 - A catchy **title**
 - An informative **description**
 - Relevant **tags and hashtags**
@@ -39,10 +46,12 @@ It works in two main scenarios:
 ### 🛠️ Scenario 1 — Planning Ahead
 
 You provide:
+
 - A topic idea
 - Key points (theses) for an upcoming video or livestream
 
 The agent generates:
+
 - ✅ Title
 - ✅ Description
 - ✅ Tags and hashtags
@@ -51,16 +60,18 @@ The agent generates:
 ### 📼 Scenario 2 — Post-Production Metadata
 
 You provide:
+
 - A **full video transcript**
 
 The agent analyzes it to create:
+
 - ✅ Topic & Title
 - ✅ Description
 - ✅ Tags and hashtags
 - ✅ Prompt for thumbnail
 - ✅ **Chapters with timestamps**
 
-> ✅ Built with Python and the `google-generativeai` library.
+> ✅ Built with Python and the `google-genai` library (official Gemini SDK).
 
 ---
 
@@ -71,6 +82,7 @@ The notebook uses a **modular design**, leveraging several key features of Gemin
 ### 1. 🪄 Prompt Engineering & Few-Shot Learning
 
 Well-designed prompts are essential. Each subtask uses a specific template that defines:
+
 - AI's role
 - Output structure
 - Optional few-shot examples
@@ -79,20 +91,41 @@ Well-designed prompts are essential. Each subtask uses a specific template that 
 
 ```python
 TOPIC_TITLE_PROMPT_FROM_TRANSCRIPT = """
-You are a YouTube metadata assistant. Your task is to analyze the **entire video transcript**...
-...
-- Line 1: <Generated Topic>
-- Line 2: <Generated Title>
+You are a YouTube metadata assistant. Analyze the **full transcript** of a video to understand its core theme.
+
+Generate exactly TWO lines:
+1. A concise **topic** summarizing the video's core subject.
+   - Max 100 characters.
+   - A short sentence or phrase.
+2. A **catchy YouTube-style title** (under 70 characters preferred).
+   - Designed to attract viewers interested in the topic.
+
+📌 Format (strict):
+<topic>
+<title>
+
+❌ Do NOT include any labels, numbers, colons, or explanations.
+
+✅ Example:
+Understanding Large Language Models in Plain English
+LLMs Explained: How ChatGPT Really Works
+
 ---
-Full Video Transcript:
+Full Transcript:
 {transcript_text}
 ---
-Generate the two lines now:
+
+Generate the output now:
 """
-2. 📦 Structured Output as JSON
+```
+
+### 2. 📦 Structured Output as JSON
+
 To ensure clarity and consistency, we ask the model to return tags/hashtags in JSON format.
 
-📦 Prompt Snippet (Cell 3.3.A):
+📦 **Prompt Snippet (Cell 3.3.A):**
+
+```python
 # ... (task instruction) ...
 - Provide the output **ONLY** as a valid JSON object:
 ```json
@@ -100,12 +133,12 @@ To ensure clarity and consistency, we ask the model to return tags/hashtags in J
   "hashtags": ["#aiforcreators", "#youtubetips"],
   "tags": ["ai youtube automation", "youtube seo"]
 }
+```
+```
 
 📦 **Processing in Python (Cell 3.3.B):**
 
 ```python
-import json
-
 # Clean markdown fences
 if text.startswith("```json"):
     text = text.lstrip("```json").rstrip("```")
@@ -116,10 +149,12 @@ try:
     tags = tags_json.get("tags", [])
 except json.JSONDecodeError:
     print("❌ Error: Could not parse model output as JSON.")
-3. 🌐 Grounded Generation via Google Search Tool
+```
+### 3. 🌐 Grounded Generation via Google Search Tool
 To generate timely and relevant descriptions, the agent uses real-time Google Search grounding.
 
-📦 Search Activation Snippet (Cell 3.2.B):
+📦 **Search Activation Snippet (Cell 3.2.B):**
+```python
 from google.genai import types
 
 config_with_search = types.GenerateContentConfig(
@@ -144,12 +179,13 @@ search_response = client.models.generate_content(
      contents=[search_query],
      config=config_with_search
 )
-
 search_text = search_response.candidates[0].content.parts[0].text.strip()
-4. 📜 Long Context & Document Understanding
+```
+### 4. 📜 Long Context & Document Understanding
 Scenario 2 relies on Gemini's ability to handle very long transcripts (e.g., >200k characters) and return meaningful outputs like chapters with timestamps.
 
-📦 Chapter Generation Snippet (Cell 3.4.B):
+📦 **Chapter Generation Snippet (Cell 3.4.B):**
+```python
 prompt = CHAPTERS_PROMPT.format(transcript=transcript_text)
 
 response = client.models.generate_content(
@@ -158,34 +194,28 @@ response = client.models.generate_content(
 )
 
 chapters_output = response.text.strip()
-🎬 Demonstration Result
-(Insert demo screenshot from Scenario 2)
+```
+## 🎬 Demonstration Result
+![alt text](image.png)
 
+*Example: Agent-generated metadata with structured chapters.*
 
-Example: Agent-generated metadata with structured chapters.
-
-⚠️ Limitations and 🔮 Future Work
+## ⚠️ Limitations and 🔮 Future Work
 Limitations:
 
-Output quality depends on input quality (especially transcripts)
-
-Some outputs might require manual refinement
-
-API usage subject to quotas (especially grounding on free tier)
-
-Availability of specific Gemini models may vary
+♦️Output quality depends on input quality (especially transcripts)
+♦️Some outputs might require manual refinement
+♦️API usage subject to quotas (especially grounding on free tier)
+♦️Availability of specific Gemini models may vary
 
 Planned Improvements:
 
-Integration with Google Sheets + YouTube API
-
-Speaker recognition & database
-
-Output quality checks + API cost tracking
-
-Further prompt optimization
-
-Minimal web UI for batch processing
+🔸Integration with Google Sheets + YouTube API
+🔸Speaker recognition & database
+🔸Output quality checks + API cost tracking
+🔸Further prompt optimization
+🔸Minimal web UI for batch processing
+🔸Integration with messenger (Telegram)
 
 ✅ Conclusion
 The YouTube Content MetaGen Agent demonstrates a practical use-case for GenAI:
@@ -193,11 +223,9 @@ The YouTube Content MetaGen Agent demonstrates a practical use-case for GenAI:
 Helping creators focus on content by automating repetitive metadata tasks.
 
 🔗 Links
-📓 Kaggle Notebook: [INSERT KAGGLE LINK HERE]
+📓 Kaggle Notebook: https://www.kaggle.com/code/dzianisbialou/youtube-content-metagen-agent
 
-▶️ YouTube Demo Video: [INSERT YOUTUBE LINK HERE]
-
-📁 GitHub Repository: [OPTIONAL: INSERT LINK HERE]
+▶️ YouTube Demo Video: https://www.youtube.com/watch?v=NqeRV9jw3ng
 
 💬 Feedback Welcome!
 I’d love to hear your feedback — comment on the Kaggle notebook or YouTube video with suggestions or questions!
