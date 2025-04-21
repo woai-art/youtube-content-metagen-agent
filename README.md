@@ -147,7 +147,7 @@ To ensure clarity and consistency, we ask the model to return tags/hashtags in J
   "tags": ["ai youtube automation", "youtube seo"]
 }
 ```
-```
+
 📦 **Processing in Python (Cell 3.3.B):**
 
 ```python
