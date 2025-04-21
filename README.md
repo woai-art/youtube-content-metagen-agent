@@ -5,31 +5,32 @@
 
 [![Kaggle](https://img.shields.io/badge/Run%20on-Kaggle-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/code/dzianisbialou/youtube-content-metagen-agent) [![YouTube](https://img.shields.io/badge/Watch%20on-YouTube-red?logo=youtube&logoColor=white)](https://youtu.be/NqeRV9jw3ng)
 
-## 📖 Оглавление
+## 📖 Table of Contents
 
-1. [Введение](#введение)
-2. [Проблема](#проблема)
-3. [Решение](#решение)
-4. [Как это работает](#как-это-работает)
-5. [Демонстрация](#демонстрация)
-6. [Ограничения и будущее](#ограничения-и-будущее)
-7. [Как внести вклад](#как-внести-вклад)
-8. [Лицензия](#лицензия)
+1. [Introduction](#introduction)
+2. [Problem](#problem)
+3. [Solution](#solution)
+4. [How It Works](#how-it-works)
+5. [Demonstration](#demonstration)
+6. [Limitations and Future Plans](#limitations-and-future-plans)
+7. [How to Run the Project](#how-to-run-the-project)
+8. [How to Contribute](#how-to-contribute)
+9. [License](#license)
 
 ---
 
-## Введение
+## Introduction
 
 Hello, fellow Homo Dataens! Dzianis here.
 
 Today, I want to share my Capstone project for **Kaggle's Gen AI Intensive course (Q1 2025)**. As a YouTube content creator myself, I faced a recurring, yet crucial, challenge: preparing video metadata.
 
-## 🚨 Проблема
+## 🚨 Problem
 
 Creating titles, descriptions, tags, chapters, and thumbnail ideas for hundreds of videos manually consumes countless hours — time that could be better spent on creativity.  
 Honestly? I got lazy! 😅
 
-## ✅ Решение
+## ✅ Solution
 
 So, I decided to automate this process using **generative AI**, specifically **Google's Gemini API**. I developed the **YouTube Content MetaGen Agent**, a tool designed to handle this routine task.
 
@@ -50,7 +51,7 @@ This adds up to hours of work every week.
 
 ---
 
-## 🤖 Как это работает
+## 🤖 How It Works
 
 My project is implemented as a **Kaggle Notebook**, featuring an AI agent that generates a complete metadata set.  
 It works in two main scenarios:
@@ -194,12 +195,12 @@ response = client.models.generate_content(
 
 chapters_output = response.text.strip()
 ```
-## 🎬 Демонстрация
+## 🎬 Demonstration
 ![alt text](image.png)
 
 *Example: Agent-generated metadata with structured chapters.*
 
-## ⚠️ Ограничения и 🔮 Будущее
+## ⚠️ Limitations and 🔮 Future Plans
 **Limitations:**
 
 - Output quality depends on input quality (especially transcripts)
@@ -218,26 +219,35 @@ chapters_output = response.text.strip()
 
 ---
 
-## 🤝 Как внести вклад
+## 🚀 How to Run the Project
 
-Мы приветствуем вклад сообщества! Чтобы внести изменения:
-
-1. Сделайте форк репозитория.
-2. Создайте новую ветку для ваших изменений:
-   ```bash
-   git checkout -b feature/ваша-функция
-   ```
-3. Внесите изменения и сделайте коммит:
-   ```bash
-   git commit -m "Добавлена новая функция"
-   ```
-4. Отправьте изменения в ваш форк и создайте Pull Request.
+1. Open the [Kaggle Notebook](https://www.kaggle.com/code/dzianisbialou/youtube-content-metagen-agent).
+2. Click the "Copy and Edit" button to create your own version of the notebook.
+3. Run all cells in the notebook sequentially.
+4. Follow the instructions provided in the notebook to generate metadata.
 
 ---
 
-## 📜 Лицензия
+## 🤝 How to Contribute
 
-Этот проект лицензирован под лицензией MIT. Подробнее см. в файле LICENSE.
+We welcome community contributions! To make changes:
+
+1. Fork the repository.
+2. Create a new branch for your changes:
+   ```bash
+   git checkout -b feature/your-feature
+   ```
+3. Make your changes and commit them:
+   ```bash
+   git commit -m "Added a new feature"
+   ```
+4. Push your changes to your fork and create a Pull Request.
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 ---
 
