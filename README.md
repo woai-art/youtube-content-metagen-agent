@@ -3,21 +3,33 @@
 ---
 ![alt text](logo.jpg)
 
-
 [![Kaggle](https://img.shields.io/badge/Run%20on-Kaggle-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/code/dzianisbialou/youtube-content-metagen-agent) [![YouTube](https://img.shields.io/badge/Watch%20on-YouTube-red?logo=youtube&logoColor=white)](https://youtu.be/NqeRV9jw3ng)
 
+## 📖 Оглавление
 
+1. [Введение](#введение)
+2. [Проблема](#проблема)
+3. [Решение](#решение)
+4. [Как это работает](#как-это-работает)
+5. [Демонстрация](#демонстрация)
+6. [Ограничения и будущее](#ограничения-и-будущее)
+7. [Как внести вклад](#как-внести-вклад)
+8. [Лицензия](#лицензия)
+
+---
+
+## Введение
 
 Hello, fellow Homo Dataens! Dzianis here.
 
 Today, I want to share my Capstone project for **Kaggle's Gen AI Intensive course (Q1 2025)**. As a YouTube content creator myself, I faced a recurring, yet crucial, challenge: preparing video metadata.
 
-## 🚨 The Problem
+## 🚨 Проблема
 
 Creating titles, descriptions, tags, chapters, and thumbnail ideas for hundreds of videos manually consumes countless hours — time that could be better spent on creativity.  
 Honestly? I got lazy! 😅
 
-## ✅ The Solution
+## ✅ Решение
 
 So, I decided to automate this process using **generative AI**, specifically **Google's Gemini API**. I developed the **YouTube Content MetaGen Agent**, a tool designed to handle this routine task.
 
@@ -38,7 +50,7 @@ This adds up to hours of work every week.
 
 ---
 
-## 🤖 The Solution: YouTube Content MetaGen Agent Overview
+## 🤖 Как это работает
 
 My project is implemented as a **Kaggle Notebook**, featuring an AI agent that generates a complete metadata set.  
 It works in two main scenarios:
@@ -134,6 +146,7 @@ To ensure clarity and consistency, we ask the model to return tags/hashtags in J
   "tags": ["ai youtube automation", "youtube seo"]
 }
 ```
+```
 📦 **Processing in Python (Cell 3.3.B):**
 
 ```python
@@ -181,12 +194,12 @@ response = client.models.generate_content(
 
 chapters_output = response.text.strip()
 ```
-## 🎬 Demonstration Result
+## 🎬 Демонстрация
 ![alt text](image.png)
 
 *Example: Agent-generated metadata with structured chapters.*
 
-## ⚠️ Limitations and 🔮 Future Work
+## ⚠️ Ограничения и 🔮 Будущее
 **Limitations:**
 
 - Output quality depends on input quality (especially transcripts)
@@ -203,11 +216,30 @@ chapters_output = response.text.strip()
 - Minimal web UI for batch processing
 - Integration with messenger (Telegram)
 
+---
 
-✅ Conclusion
-The YouTube Content MetaGen Agent demonstrates a practical use-case for GenAI:
+## 🤝 Как внести вклад
 
-Helping creators focus on content by automating repetitive metadata tasks.
+Мы приветствуем вклад сообщества! Чтобы внести изменения:
+
+1. Сделайте форк репозитория.
+2. Создайте новую ветку для ваших изменений:
+   ```bash
+   git checkout -b feature/ваша-функция
+   ```
+3. Внесите изменения и сделайте коммит:
+   ```bash
+   git commit -m "Добавлена новая функция"
+   ```
+4. Отправьте изменения в ваш форк и создайте Pull Request.
+
+---
+
+## 📜 Лицензия
+
+Этот проект лицензирован под лицензией MIT. Подробнее см. в файле LICENSE.
+
+---
 
 **🔗 Links:**
 - 📓 Kaggle Notebook: https://www.kaggle.com/code/dzianisbialou/youtube-content-metagen-agent
